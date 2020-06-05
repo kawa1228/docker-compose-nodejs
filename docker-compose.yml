@@ -1,5 +1,18 @@
 version: '3'
 services:
+  mysql:
+    image: mysql:5.7
+    env_file: ./mysql/mysql.env
+    environment:
+      - TZ=Asia/Tokyo
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./mysql/conf:/etc/mysql/conf.d/:ro
+      - mysqldata:/var/lib/mysql
+    networks:
+      - web
+
   app:
     image: node:12
     env_file: ./app.env
@@ -14,7 +27,13 @@ services:
     working_dir: /app
     command: npm run watch
     networks:
-      - express
+      - web
+    depends_on:
+      - mysql
 
 networks:
-  express:
+  web:
+
+# コンテナが削除されてもデータが消えずに保持される
+volumes:
+  mysqldata:

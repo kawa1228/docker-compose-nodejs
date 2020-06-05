@@ -9,6 +9,17 @@ http://localhost:3000/
 ## log
 ```
 docker-compose logs -f
+
+```
+## MySQL
+login
+```
+docker-compose exec mysql mysql -uroot -p
+```
+```
+mysql> show databases;
+mysql> use database;
+mysql> show tables;
 ```
 
 ## 参考
