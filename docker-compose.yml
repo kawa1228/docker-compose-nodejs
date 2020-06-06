@@ -11,7 +11,7 @@ services:
       - ./mysql/conf:/etc/mysql/conf.d/:ro
       - mysqldata:/var/lib/mysql
     networks:
-      - web
+      - default
 
   app:
     image: node:12
@@ -27,12 +27,12 @@ services:
     working_dir: /app
     command: npm run watch
     networks:
-      - web
+      - default
     depends_on:
       - mysql
 
 networks:
-  web:
+  default:
 
 # コンテナが削除されてもデータが消えずに保持される
 volumes:
